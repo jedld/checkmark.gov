@@ -2,6 +2,7 @@ package com.dayosoft.checkmark;
 
 import java.util.ArrayList;
 
+import com.dayosoft.adapters.ProjectListAdapter;
 import com.dayosoft.animations.CheckMarkAnimations;
 import com.dayosoft.models.BudgetEntity;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
@@ -20,26 +21,17 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	ArrayList <BudgetEntity> agencies = new ArrayList <BudgetEntity>();
-	private LayoutInflater layoutInflater;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		this.layoutInflater = (LayoutInflater) this
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		BudgetEntity entity = new BudgetEntity();
-		entity.setDisplayName("Department of Education");
-		entity.setWeight(80);
-		entity.setMainImageUrl("http://image.shutterstock.com/display_pic_with_logo/91282/144566138/stock-photo-portrait-of-diligent-schoolkids-and-their-teacher-talking-at-lesson-144566138.jpg");
-		for (int i =0; i <20; i++) {
-			agencies.add(entity);
-		}
+		
 		renderAgencies();
 	}
 
@@ -52,50 +44,17 @@ public class MainActivity extends Activity {
 
 	
 	private void renderAgencies() {
-		ViewGroup mainView = (ViewGroup)this.findViewById(R.id.agencies);
-		
-		for (BudgetEntity agency : agencies) {
-			View view = layoutInflater.inflate(R.layout.main_entity, null, false);
-			ImageView image = (ImageView)view.findViewById(R.id.imageViewAgency);
-			TextView name = (TextView)view.findViewById(R.id.agencyName);
-			name.setText(agency.getDisplayName());
-			UrlImageViewHelper.setUrlDrawable(image, agency.getMainImageUrl());
-			
-			view.setOnClickListener(new OnClickListener() {
+		ListView mainView = (ListView)this.findViewById(R.id.listViewProjects);
+		ArrayList <BudgetEntity> agencies = new ArrayList <BudgetEntity>();
 
-				@Override
-				public void onClick(View arg0) {
-					CheckMarkAnimations.bobble(arg0, new AnimatorListener() {
+		BudgetEntity entity = new BudgetEntity();
+		entity.setDisplayName("Department of Education");
+		entity.setWeight(80);
+		entity.setMainImageUrl("http://image.shutterstock.com/display_pic_with_logo/91282/144566138/stock-photo-portrait-of-diligent-schoolkids-and-their-teacher-talking-at-lesson-144566138.jpg");
 
-						@Override
-						public void onAnimationCancel(Animator animation) {
-							// TODO Auto-generated method stub
-							
-						}
-
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							// TODO Auto-generated method stub
-							
-						}
-
-						@Override
-						public void onAnimationRepeat(Animator animation) {
-							// TODO Auto-generated method stub
-							
-						}
-
-						@Override
-						public void onAnimationStart(Animator animation) {
-							// TODO Auto-generated method stub
-							
-						}
-						
-					});
-				}
-				
-			});
-			mainView.addView(view);
+		for (int i =0; i <20; i++) {
+			agencies.add(entity);
 		}
+		mainView.setAdapter(new ProjectListAdapter(this, agencies));
 	}
 }
