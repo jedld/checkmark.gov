@@ -7,6 +7,7 @@ import com.dayosoft.adapters.ProjectListAdapter;
 import com.dayosoft.animations.CheckMarkAnimations;
 import com.dayosoft.async.QueryStatusCallback;
 import com.dayosoft.async.RestQueryRetriever;
+import com.dayosoft.checkmark.util.LoginHelper;
 import com.dayosoft.models.BudgetEntity;
 import com.dayosoft.utils.CheckmarkClient;
 import com.google.gson.JsonArray;
@@ -68,7 +69,7 @@ public class MainActivity extends Activity {
 		final ListView mainView = (ListView)this.findViewById(R.id.listViewProjects);
 		final HashMap<String, String> params = new HashMap<String, String>();
 		params.put("q", q);
-		new RestQueryRetriever(CheckmarkClient.HTTP_GET,
+		RestQueryRetriever rest = new RestQueryRetriever(CheckmarkClient.HTTP_GET,
 				"ga/list",
 				params, 
 				new QueryStatusCallback() {
@@ -79,8 +80,10 @@ public class MainActivity extends Activity {
 						JsonArray res = result.getAsJsonArray("result");
 						ArrayList <BudgetEntity> agencies = new ArrayList <BudgetEntity>();
 						for(JsonElement elem : res) {
-							BudgetEntity entity = RestQueryRetriever.resultToEntity(elem);
-							agencies.add(entity);
+							if (res!=null) {
+								BudgetEntity entity = RestQueryRetriever.resultToEntity(elem);
+								agencies.add(entity);
+							}
 						}
 						mainView.setAdapter(new ProjectListAdapter(MainActivity.this, params, agencies, total, res.size()));
 					}
@@ -96,7 +99,12 @@ public class MainActivity extends Activity {
 						hideLoader();
 					}
 			
-		}).execute();
+		});
+		String auth = LoginHelper.getCurrentUser(this);
+		if (auth!=null) {
+			rest.getClient().setAuthToken(auth);
+		}
+		rest.execute();
 
 	}
 	

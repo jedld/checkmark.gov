@@ -107,7 +107,7 @@ public class ProjectListAdapter implements ListAdapter {
 				this.queryInProgress = true;
 				params.put("from",
 						Integer.toString((pages_cached * PER_PAGE) + 1));
-				new RestQueryRetriever(CheckmarkClient.HTTP_GET, "ga/list",
+				RestQueryRetriever rest = new RestQueryRetriever(CheckmarkClient.HTTP_GET, "ga/list",
 						params, new QueryStatusCallback() {
 
 							@Override
@@ -139,7 +139,12 @@ public class ProjectListAdapter implements ListAdapter {
 							public void onFinish() {
 							}
 
-						}).execute();
+						});
+				String auth = LoginHelper.getCurrentUser(context);
+				if (auth!=null) {
+					rest.getClient().setAuthToken(auth);
+				}
+				rest.execute();
 
 			}
 		}
