@@ -60,7 +60,7 @@ public class SplashActivity extends Activity {
 			SplashActivity.this.finish();
 			
 				Intent intent = new Intent(SplashActivity.this,
-						MainActivity.class);
+						SectorSelectActivity.class);
 				startActivity(intent);
 			
 		}

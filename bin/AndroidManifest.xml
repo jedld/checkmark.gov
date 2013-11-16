@@ -42,7 +42,9 @@
         </activity>
         <activity
             android:name="com.dayosoft.checkmark.SectorSelectActivity"
-            android:label="@string/title_activity_sector_select" >
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:label="@string/title_activity_sector_select"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
