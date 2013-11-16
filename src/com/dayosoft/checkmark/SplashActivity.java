@@ -3,19 +3,15 @@ package com.dayosoft.checkmark;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
+
+import com.dayosoft.checkmark.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -41,7 +37,7 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+		setContentView(R.layout.activity_splash);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		Log.d(this.getClass().toString(), "onCreate()");

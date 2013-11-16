@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BudgetEntity {
 
 	int weight;
-	String id;
+	long id;
 	String displayName;
 	String mainImageUrl;
 	ArrayList<BudgetEntity> subEntities = new ArrayList<BudgetEntity>();
@@ -18,11 +18,11 @@ public class BudgetEntity {
 		this.weight = weight;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
