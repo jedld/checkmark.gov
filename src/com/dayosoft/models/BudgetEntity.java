@@ -8,6 +8,16 @@ public class BudgetEntity {
 	long id;
 	String displayName;
 	String mainImageUrl;
+	String budgetTotal;
+	
+	public String getBudgetTotal() {
+		return budgetTotal;
+	}
+
+	public void setBudgetTotal(String budgetTotal) {
+		this.budgetTotal = budgetTotal;
+	}
+
 	ArrayList<BudgetEntity> subEntities = new ArrayList<BudgetEntity>();
 
 	public int getWeight() {

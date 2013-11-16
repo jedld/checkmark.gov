@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.dayosoft.async.QueryStatusCallback;
 import com.dayosoft.async.RestQueryRetriever;
+import com.dayosoft.checkmark.util.LoginHelper;
 import com.dayosoft.utils.CheckmarkClient;
 import com.google.gson.JsonObject;
 
@@ -166,7 +167,9 @@ public class LoginActivity extends Activity {
 
 						@Override
 						public void onComplete(JsonObject result) {
-							// TODO Auto-generated method stub
+							String authentication_token = result.get("authentication_token").getAsString();
+							LoginHelper.storeCurrentUser(LoginActivity.this, authentication_token);
+							LoginActivity.this.finish();
 						}
 
 						@Override

@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("q", q);
 		new RestQueryRetriever(CheckmarkClient.HTTP_GET,
-				"list",
+				"ga/list",
 				params, 
 				new QueryStatusCallback() {
 

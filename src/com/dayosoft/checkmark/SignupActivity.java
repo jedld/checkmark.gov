@@ -163,10 +163,10 @@ public class SignupActivity extends Activity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			HashMap<String, String> request_params = new HashMap<String, String>();
-			request_params.put("email", mEmail);
-			request_params.put("password", mPassword);
-			request_params.put("last_name", mLastName);
-			request_params.put("first_name", mFirstName);
+			request_params.put("user[email]", mEmail);
+			request_params.put("user[password]", mPassword);
+			request_params.put("user[last_name]", mLastName);
+			request_params.put("user[first_name]", mFirstName);
 			RestQueryRetriever rest = new RestQueryRetriever(
 					CheckmarkClient.HTTP_POST,
 					"user/create",

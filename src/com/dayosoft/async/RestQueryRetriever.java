@@ -30,6 +30,16 @@ public class RestQueryRetriever extends AsyncTask<Void,Void,JsonObject> {
 	} 
 	
 
+	public CheckmarkClient getClient() {
+		return client;
+	}
+
+
+	public void setClient(CheckmarkClient client) {
+		this.client = client;
+	}
+
+
 	@Override
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
@@ -63,7 +73,9 @@ public class RestQueryRetriever extends AsyncTask<Void,Void,JsonObject> {
 		BudgetEntity entity = new BudgetEntity();
 		int budget_id = elem.getAsJsonObject().get("budget_id").getAsInt();
 		String budget_description = elem.getAsJsonObject().get("budget_description").getAsString();
+		int budget_total = elem.getAsJsonObject().get("budget_total").getAsInt();
 		entity.setId(budget_id);
+		entity.setBudgetTotal(Integer.toString(budget_total));
 		entity.setDisplayName(budget_description);
 		return entity;
 	}

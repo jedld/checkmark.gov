@@ -15,4 +15,6 @@
 	<string name="prompt_verify_password">Confirm Password</string>
 	<string name="signup_via_email">Sign Up using my email</string>
 	<string name="please_sign_in">Sign up or Log in to be able to vote</string>
+	<string name="eks">ekis</string>
+	<string name="login_using_email">Login va email</string>
 </resources>

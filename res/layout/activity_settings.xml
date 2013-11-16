@@ -16,7 +16,7 @@
         android:id="@+id/buttonSignUpEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/signup_via_email" />
+        android:text="@string/login_using_email" />
 
     <TextView
         android:id="@+id/textView1"

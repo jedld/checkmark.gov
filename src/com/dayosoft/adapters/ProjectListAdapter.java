@@ -7,8 +7,10 @@ import com.dayosoft.animations.CheckMarkAnimations;
 import com.dayosoft.async.QueryStatusCallback;
 import com.dayosoft.async.RestQueryRetriever;
 import com.dayosoft.checkmark.BudgetDetailActivity;
+import com.dayosoft.checkmark.LoginActivity;
 import com.dayosoft.checkmark.MainActivity;
 import com.dayosoft.checkmark.R;
+import com.dayosoft.checkmark.util.LoginHelper;
 import com.dayosoft.models.BudgetEntity;
 import com.dayosoft.utils.CheckmarkClient;
 import com.google.gson.JsonArray;
@@ -53,8 +55,8 @@ public class ProjectListAdapter implements ListAdapter {
 				: (total_items / PER_PAGE) + 1;
 	}
 
-	public ProjectListAdapter(Activity context, String q, ArrayList<BudgetEntity> list,
-			int total_count, int last_page_count) {
+	public ProjectListAdapter(Activity context, String q,
+			ArrayList<BudgetEntity> list, int total_count, int last_page_count) {
 		this.context = context;
 		this.list = list;
 		this.total_count = total_count;
@@ -96,7 +98,8 @@ public class ProjectListAdapter implements ListAdapter {
 	}
 
 	private synchronized void loadMore(int position) {
-		Log.d(this.getClass().toString(),"CACHED: " + pages_cached + " total :" + total_pages);
+		Log.d(this.getClass().toString(), "CACHED: " + pages_cached
+				+ " total :" + total_pages);
 		if (pages_cached < total_pages
 				&& position > (list.size() - (items_on_last_page / 2) + 1)) {
 			Log.d(this.getClass().toString(), "load more elements requested");
@@ -106,7 +109,7 @@ public class ProjectListAdapter implements ListAdapter {
 				params.put("q", q);
 				params.put("from",
 						Integer.toString((pages_cached * PER_PAGE) + 1));
-				new RestQueryRetriever(CheckmarkClient.HTTP_GET, "list",
+				new RestQueryRetriever(CheckmarkClient.HTTP_GET, "ga/list",
 						params, new QueryStatusCallback() {
 
 							@Override
@@ -144,6 +147,84 @@ public class ProjectListAdapter implements ListAdapter {
 		}
 	}
 
+	class VoteClickListener implements OnClickListener {
+
+		public static final int VOTE_UP = 1;
+		public static final int VOTE_DOWN = 2;
+		long id;
+		int vote_type;
+
+		public VoteClickListener(long id, int vote_type) {
+			this.id = id;
+			this.vote_type = vote_type;
+		}
+
+		@Override
+		public void onClick(final View view) {
+			if (!LoginHelper.isLoggedIn(context)) {
+				Intent intent = new Intent(context, LoginActivity.class);
+				context.startActivity(intent);
+			} else {
+				CheckMarkAnimations.bobble(view, new AnimatorListener() {
+
+					@Override
+					public void onAnimationCancel(Animator arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onAnimationEnd(Animator arg0) {
+						HashMap<String, String> params = new HashMap<String, String>();
+						params.put("vote[vote_type]",
+								Integer.toString(vote_type));
+						params.put("vote[comment]", "");
+						RestQueryRetriever rest = new RestQueryRetriever(
+								CheckmarkClient.HTTP_POST, "votes/ga/" + id,
+								params, new QueryStatusCallback() {
+
+									@Override
+									public void onComplete(JsonObject result) {
+										// TODO Auto-generated method stub
+
+									}
+
+									@Override
+									public void onStart() {
+										// TODO Auto-generated method stub
+
+									}
+
+									@Override
+									public void onFinish() {
+										// TODO Auto-generated method stub
+
+									}
+
+								});
+						rest.getClient().setAuthToken(
+								LoginHelper.getCurrentUser(context));
+						rest.execute();
+					}
+
+					@Override
+					public void onAnimationRepeat(Animator arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onAnimationStart(Animator arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+				});
+			}
+
+		}
+	}
+
 	@Override
 	public View getView(int index, View oldView, ViewGroup viewGroup) {
 
@@ -151,14 +232,26 @@ public class ProjectListAdapter implements ListAdapter {
 		if (index < list.size()) {
 			View view = layoutInflater.inflate(R.layout.main_entity, null,
 					false);
+			View vote = (View) view.findViewById(R.id.buttonVote);
+
+			View issuses = (View) view.findViewById(R.id.buttonHasIssues);
+
 			ImageView image = (ImageView) view
 					.findViewById(R.id.imageViewAgency);
 			TextView name = (TextView) view.findViewById(R.id.agencyName);
 
 			BudgetEntity entity = this.list.get(index);
 
+			view.setTag(Long.toString(entity.getId()));
+
 			name.setText(entity.getDisplayName());
 			UrlImageViewHelper.setUrlDrawable(image, entity.getMainImageUrl());
+
+			vote.setOnClickListener(new VoteClickListener(entity.getId(),
+					VoteClickListener.VOTE_UP));
+
+			issuses.setOnClickListener(new VoteClickListener(entity.getId(),
+					VoteClickListener.VOTE_DOWN));
 
 			view.setOnClickListener(new OnClickListener() {
 

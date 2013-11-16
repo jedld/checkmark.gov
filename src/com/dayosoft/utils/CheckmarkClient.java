@@ -69,6 +69,7 @@ public class CheckmarkClient {
 
 	final String API_URL = "http://192.168.1.133:3000/api/v1/";
 	static CheckmarkClient instance;
+	String authToken;
 	String apiKey;
 	String apiSecret;
 	String apid;
@@ -81,6 +82,15 @@ public class CheckmarkClient {
 		this.apid = apid;
 	}
 	
+	
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
+	}
+
 	public JsonObject query(String path, HashMap<String, String> params,
 			int method) {
 
@@ -104,6 +114,10 @@ public class CheckmarkClient {
 
 		} else {
 			request = new HttpPost( API_URL + path);
+			
+			if (this.getAuthToken()!=null) {
+				params.put("auth_token", this.getAuthToken());
+			}
 			HttpPost postRequest = (HttpPost) request;
 
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();

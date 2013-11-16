@@ -31,7 +31,7 @@ public class SettingsActivity extends Activity implements StatusCallback {
 
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(SettingsActivity.this, SignupActivity.class);
+				Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
 				startActivity(intent);
 			}
 			
