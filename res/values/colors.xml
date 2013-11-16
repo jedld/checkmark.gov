@@ -1,5 +1,12 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="header_background">#333333</color>
+    <color name="persian_green">#00A78D</color>
+    <color name="shakespear">#7DB6D3</color>
+    <color name="cinnabar">#ED3431</color>
+    <color name="london_hue">#B995C5</color>
+    <color name="sunglow">#FFCB2F</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>
