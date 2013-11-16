@@ -41,8 +41,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		renderAgencies();
+		renderProjects("*");
 	}
 
 	@Override
@@ -63,10 +62,10 @@ public class MainActivity extends Activity {
 	}
 
 
-	private void renderAgencies() {
+	private void renderProjects(final String q) {
 		final ListView mainView = (ListView)this.findViewById(R.id.listViewProjects);
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("q", "*");
+		params.put("q", q);
 		new RestQueryRetriever(CheckmarkClient.HTTP_GET,
 				"list",
 				params, 
@@ -81,7 +80,7 @@ public class MainActivity extends Activity {
 							BudgetEntity entity = RestQueryRetriever.resultToEntity(elem);
 							agencies.add(entity);
 						}
-						mainView.setAdapter(new ProjectListAdapter(MainActivity.this, agencies, total, res.size()));
+						mainView.setAdapter(new ProjectListAdapter(MainActivity.this, q, agencies, total, res.size()));
 					}
 
 					@Override

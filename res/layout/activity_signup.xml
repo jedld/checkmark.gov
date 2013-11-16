@@ -1,6 +1,6 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity" >
+    tools:context=".SignupActivity" >
 
     <!-- Login progress -->
 
@@ -61,38 +61,44 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/confirm_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_verify_password"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_last_name"
+                android:maxLines="1"
+                android:singleLine="true" />
 
-                <Button
-                    android:id="@+id/sign_up_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="16dp"
-                    android:paddingLeft="32dp"
-                    android:paddingRight="32dp"
-                    android:text="Sign Up" />
+            <EditText
+                android:id="@+id/first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_first_name"
+                android:maxLines="1"
+                android:singleLine="true" />
+            <Button
+                android:id="@+id/sign_in_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:text="@string/action_sign_in_register" />
 
-                <Button
-                    android:id="@+id/sign_in_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="16dp"
-                    android:paddingLeft="32dp"
-                    android:paddingRight="32dp"
-                    android:text="@string/action_sign_in_register" />
-
-            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </FrameLayout>
 
 </merge>

@@ -4,6 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SettingsActivity" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/please_sign_in"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/buttonSignUpEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/signup_via_email" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"

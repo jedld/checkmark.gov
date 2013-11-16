@@ -11,7 +11,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,13 +26,7 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
+public class SignupActivity extends Activity {
 
 	/**
 	 * The default email to populate the email field with.
@@ -48,22 +41,32 @@ public class LoginActivity extends Activity {
 	// UI references.
 	private EditText mEmailView;
 	private EditText mPasswordView;
+	private EditText mConfirmPasswordView;
+	private EditText mLastNameView;
+	private EditText mFirstNameView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+
+	private String mConfirmPassword;
+
+	private String mLastName;
+
+	private String mFirstName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_signup);
 
 		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
-
 		mPasswordView = (EditText) findViewById(R.id.password);
+		mConfirmPasswordView = (EditText) findViewById(R.id.confirm_password);
+		mLastNameView = (EditText)findViewById(R.id.last_name);
+		mFirstNameView = (EditText)findViewById(R.id.first_name);
+		
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
@@ -88,21 +91,12 @@ public class LoginActivity extends Activity {
 						attemptLogin();
 					}
 				});
-		
-		findViewById(R.id.sign_up_button).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-						startActivity(intent);
-					}
-				});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.signup, menu);
 		return true;
 	}
 
@@ -112,7 +106,6 @@ public class LoginActivity extends Activity {
 	 * errors are presented and no actual login attempt is made.
 	 */
 	public void attemptLogin() {
-
 		// Reset errors.
 		mEmailView.setError(null);
 		mPasswordView.setError(null);
@@ -120,7 +113,10 @@ public class LoginActivity extends Activity {
 		// Store values at the time of the login attempt.
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
-
+		mConfirmPassword = mConfirmPasswordView.getText().toString();
+		mLastName = mLastNameView.getText().toString();
+		mFirstName = mFirstNameView.getText().toString();
+		
 		boolean cancel = false;
 		View focusView = null;
 
@@ -132,6 +128,17 @@ public class LoginActivity extends Activity {
 		} else if (mPassword.length() < 4) {
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
+			cancel = true;
+		}
+		
+		// Check for a valid password.
+		if (TextUtils.isEmpty(mConfirmPassword)) {
+			mPasswordView.setError(getString(R.string.error_field_required));
+			focusView = mPasswordView;
+			cancel = true;
+		} else if (!mConfirmPassword.equals(mPassword)) {
+			mPasswordView.setError(getString(R.string.error_password_not_match));
+			focusView = mConfirmPasswordView;
 			cancel = true;
 		}
 
@@ -155,18 +162,20 @@ public class LoginActivity extends Activity {
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
-			HashMap<String, String> requst_params = new HashMap<String, String>();
-			requst_params.put("email", mEmail);
-			requst_params.put("password", mPassword);
+			HashMap<String, String> request_params = new HashMap<String, String>();
+			request_params.put("email", mEmail);
+			request_params.put("password", mPassword);
+			request_params.put("last_name", mLastName);
+			request_params.put("first_name", mFirstName);
 			RestQueryRetriever rest = new RestQueryRetriever(
 					CheckmarkClient.HTTP_POST,
-					"user/login",
-					requst_params, 
+					"user/create",
+					request_params, 
 					new QueryStatusCallback() {
 
 						@Override
 						public void onComplete(JsonObject result) {
-							// TODO Auto-generated method stub
+							SignupActivity.this.finish();
 						}
 
 						@Override
@@ -182,7 +191,6 @@ public class LoginActivity extends Activity {
 						
 					});
 			rest.execute();
-			
 		}
 	}
 
@@ -227,5 +235,4 @@ public class LoginActivity extends Activity {
 		}
 	}
 
-	
 }

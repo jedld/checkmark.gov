@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class SettingsActivity extends Activity implements StatusCallback {
 	
@@ -22,6 +25,18 @@ public class SettingsActivity extends Activity implements StatusCallback {
 		
 		uiHelper = new UiLifecycleHelper(this, this);
 		uiHelper.onCreate(savedInstanceState);
+		
+		Button signupButton = (Button)findViewById(R.id.buttonSignUpEmail);
+		signupButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(SettingsActivity.this, SignupActivity.class);
+				startActivity(intent);
+			}
+			
+		});
+		
 	}
 
 	@Override

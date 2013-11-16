@@ -68,7 +68,6 @@ public class CheckmarkClient {
 	public static final int HTTP_POST = 1;
 
 	final String API_URL = "http://192.168.1.133:3000/api/v1/";
-	final String API_KEY = "c03b5e1e4710eb3be73a77d0cfa2a784a92c099b";
 	static CheckmarkClient instance;
 	String apiKey;
 	String apiSecret;
@@ -104,7 +103,7 @@ public class CheckmarkClient {
 			Log.v(this.getClass().toString(), "Checkmark Request: GET " + fullurl);
 
 		} else {
-			request = new HttpPost(path);
+			request = new HttpPost( API_URL + path);
 			HttpPost postRequest = (HttpPost) request;
 
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();

@@ -12,5 +12,7 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="facebook">Login with Facebook</string>
     <string name="title_activity_budget_detail">BudgetDetailActivity</string>
-
+	<string name="prompt_verify_password">Confirm Password</string>
+	<string name="signup_via_email">Sign Up using my email</string>
+	<string name="please_sign_in">Sign up or Log in to be able to vote</string>
 </resources>
