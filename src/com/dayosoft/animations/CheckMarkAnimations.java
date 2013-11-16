@@ -60,9 +60,9 @@ public class CheckMarkAnimations {
 		AnimatorSet set = new AnimatorSet();
 		
 		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.2f);
-		animator.setDuration(250);
+		animator.setDuration(150);
 		ObjectAnimator animator2 = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 1.2f);
-		animator.setDuration(250);
+		animator.setDuration(150);
 		set.playTogether(animator, animator2);
 		set.addListener(new AnimatorListener() {
 
