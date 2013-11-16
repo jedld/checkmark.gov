@@ -36,7 +36,8 @@ public class CheckMarkAnimations {
 				
 				ObjectAnimator animator = ObjectAnimator.ofInt(view, "left", view.getLeft(), display.getWidth());
 						animator.setDuration(250);
-				animator.start();		
+				animator.addListener(finalListener);
+				animator.start();
 			}
 
 			@Override
@@ -57,10 +58,11 @@ public class CheckMarkAnimations {
 	
 	public static void bobble(final View view, final AnimatorListener finalListener) {
 		AnimatorSet set = new AnimatorSet();
+		
 		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.2f);
-		animator.setDuration(250);
+		animator.setDuration(150);
 		ObjectAnimator animator2 = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 1.2f);
-		animator.setDuration(250);
+		animator.setDuration(150);
 		set.playTogether(animator, animator2);
 		set.addListener(new AnimatorListener() {
 

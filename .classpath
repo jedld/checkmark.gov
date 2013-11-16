@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="/home/jedld/workspace/checkmark.gov/libs/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="/home/jedld/workspace/checkmark.gov/libs/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="/home/jedld/workspace/checkmark.gov/libs/android-support-v4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
