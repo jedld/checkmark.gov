@@ -2,15 +2,20 @@ package com.dayosoft.checkmark;
 
 import java.util.ArrayList;
 
+import com.dayosoft.animations.CheckMarkAnimations;
 import com.dayosoft.models.BudgetEntity;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import android.os.Bundle;
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -48,12 +53,48 @@ public class MainActivity extends Activity {
 	
 	private void renderAgencies() {
 		ViewGroup mainView = (ViewGroup)this.findViewById(R.id.agencies);
+		
 		for (BudgetEntity agency : agencies) {
 			View view = layoutInflater.inflate(R.layout.main_entity, null, false);
 			ImageView image = (ImageView)view.findViewById(R.id.imageViewAgency);
 			TextView name = (TextView)view.findViewById(R.id.agencyName);
 			name.setText(agency.getDisplayName());
 			UrlImageViewHelper.setUrlDrawable(image, agency.getMainImageUrl());
+			
+			view.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					CheckMarkAnimations.bobble(arg0, new AnimatorListener() {
+
+						@Override
+						public void onAnimationCancel(Animator animation) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onAnimationRepeat(Animator animation) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onAnimationStart(Animator animation) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					});
+				}
+				
+			});
 			mainView.addView(view);
 		}
 	}
