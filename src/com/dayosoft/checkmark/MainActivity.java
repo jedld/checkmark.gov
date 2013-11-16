@@ -41,7 +41,9 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		renderProjects("*");
+		
+		String sector = this.getIntent().getExtras().getString("sector");
+		renderProjects("sector_code:" + sector);
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class MainActivity extends Activity {
 
 	private void renderProjects(final String q) {
 		final ListView mainView = (ListView)this.findViewById(R.id.listViewProjects);
-		HashMap<String, String> params = new HashMap<String, String>();
+		final HashMap<String, String> params = new HashMap<String, String>();
 		params.put("q", q);
 		new RestQueryRetriever(CheckmarkClient.HTTP_GET,
 				"ga/list",
@@ -80,7 +82,7 @@ public class MainActivity extends Activity {
 							BudgetEntity entity = RestQueryRetriever.resultToEntity(elem);
 							agencies.add(entity);
 						}
-						mainView.setAdapter(new ProjectListAdapter(MainActivity.this, q, agencies, total, res.size()));
+						mainView.setAdapter(new ProjectListAdapter(MainActivity.this, params, agencies, total, res.size()));
 					}
 
 					@Override
@@ -95,16 +97,7 @@ public class MainActivity extends Activity {
 					}
 			
 		}).execute();
-//			
-//		BudgetEntity entity = new BudgetEntity();
-//		entity.setDisplayName("Department of Education");
-//		entity.setWeight(80);
-//		entity.setMainImageUrl("http://image.shutterstock.com/display_pic_with_logo/91282/144566138/stock-photo-portrait-of-diligent-schoolkids-and-their-teacher-talking-at-lesson-144566138.jpg");
-//
-//		for (int i =0; i <20; i++) {
-//			agencies.add(entity);
-//		}
-//		mainView.setAdapter(new ProjectListAdapter(this, agencies));
+
 	}
 	
 	void showLoader() {

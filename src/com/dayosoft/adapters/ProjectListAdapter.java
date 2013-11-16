@@ -48,19 +48,19 @@ public class ProjectListAdapter implements ListAdapter {
 	int total_count;
 	int items_on_last_page;
 	int pages_cached = 1;
-	String q;
+	HashMap<String, String> params = new HashMap<String, String>();
 
 	int compute_page(int total_items) {
 		return total_items % PER_PAGE == 0 ? (total_items / PER_PAGE)
 				: (total_items / PER_PAGE) + 1;
 	}
 
-	public ProjectListAdapter(Activity context, String q,
+	public ProjectListAdapter(Activity context,HashMap<String, String> params,
 			ArrayList<BudgetEntity> list, int total_count, int last_page_count) {
 		this.context = context;
 		this.list = list;
 		this.total_count = total_count;
-		this.q = q;
+		this.params = params;
 		this.total_pages = compute_page(total_count);
 		this.items_on_last_page = last_page_count;
 		this.layoutInflater = (LayoutInflater) context
@@ -105,8 +105,6 @@ public class ProjectListAdapter implements ListAdapter {
 			Log.d(this.getClass().toString(), "load more elements requested");
 			if (!this.queryInProgress) {
 				this.queryInProgress = true;
-				HashMap<String, String> params = new HashMap<String, String>();
-				params.put("q", q);
 				params.put("from",
 						Integer.toString((pages_cached * PER_PAGE) + 1));
 				new RestQueryRetriever(CheckmarkClient.HTTP_GET, "ga/list",

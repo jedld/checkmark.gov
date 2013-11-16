@@ -36,6 +36,7 @@
 
             <RelativeLayout
                 android:id="@+id/selectSocialServices"
+                android:tag="SS"
                 android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
@@ -53,6 +54,7 @@
             <RelativeLayout
                 android:layout_below="@+id/selectSocialServices"
                 android:id="@+id/selectEconomicServices"
+                android:tag="ES"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:background="@color/shakespear" >
@@ -68,6 +70,7 @@
 
             <RelativeLayout
                 android:id="@+id/selectDebtBurden"
+                android:tag="DS"
                 android:layout_below="@+id/selectEconomicServices"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
@@ -87,6 +90,7 @@
                 android:layout_below="@+id/selectDebtBurden"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
+                android:tag="GPS"
                 android:background="@color/london_hue" >
 
                 <TextView
@@ -100,7 +104,8 @@
 
             <RelativeLayout
                 android:id="@+id/selectDefence"
-                 android:layout_below="@+id/selectPublicServices"
+                android:layout_below="@+id/selectPublicServices"
+                android:tag="D"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:background="@color/sunglow" >
