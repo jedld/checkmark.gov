@@ -5,26 +5,38 @@
     android:orientation="vertical"
     tools:context=".SectorSelectActivity" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/header_background"
-        android:orientation="vertical" >
-    </LinearLayout>
+        android:background="@color/header_background" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo_tsekmark" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         android:layout_below="@id/header" >
 
-        <LinearLayout
+        <RelativeLayout
+            
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipChildren="false"
             android:orientation="vertical" >
 
             <RelativeLayout
+                android:id="@+id/selectSocialServices"
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:background="@color/persian_green" >
@@ -39,6 +51,8 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_below="@+id/selectSocialServices"
+                android:id="@+id/selectEconomicServices"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:background="@color/shakespear" >
@@ -53,6 +67,8 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/selectDebtBurden"
+                android:layout_below="@+id/selectEconomicServices"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:background="@color/cinnabar" >
@@ -67,6 +83,8 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/selectPublicServices"
+                android:layout_below="@+id/selectDebtBurden"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:background="@color/london_hue" >
@@ -81,6 +99,8 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/selectDefence"
+                 android:layout_below="@+id/selectPublicServices"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:background="@color/sunglow" >
@@ -93,7 +113,7 @@
                     android:layout_centerInParent="true"
                     android:text="DEFENSE" />
             </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

@@ -57,6 +57,7 @@ public class CheckMarkAnimations {
 	
 	public static void bobble(final View view, final AnimatorListener finalListener) {
 		AnimatorSet set = new AnimatorSet();
+		
 		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.2f);
 		animator.setDuration(250);
 		ObjectAnimator animator2 = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 1.2f);
