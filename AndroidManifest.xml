@@ -65,6 +65,11 @@
             android:name="com.dayosoft.checkmark.BudgetDetailActivity"
             android:label="@string/title_activity_budget_detail" >
         </activity>
+        <activity
+            android:name="com.dayosoft.checkmark.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
     </application>
 
 </manifest>

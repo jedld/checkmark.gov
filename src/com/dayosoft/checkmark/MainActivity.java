@@ -1,10 +1,17 @@
 package com.dayosoft.checkmark;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.dayosoft.adapters.ProjectListAdapter;
 import com.dayosoft.animations.CheckMarkAnimations;
+import com.dayosoft.async.QueryStatusCallback;
+import com.dayosoft.async.RestQueryRetriever;
 import com.dayosoft.models.BudgetEntity;
+import com.dayosoft.utils.CheckmarkClient;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import android.os.Bundle;
@@ -24,6 +31,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -54,19 +62,59 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	
+
 	private void renderAgencies() {
-		ListView mainView = (ListView)this.findViewById(R.id.listViewProjects);
-		ArrayList <BudgetEntity> agencies = new ArrayList <BudgetEntity>();
+		final ListView mainView = (ListView)this.findViewById(R.id.listViewProjects);
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("q", "*");
+		new RestQueryRetriever(CheckmarkClient.HTTP_GET,
+				"list",
+				params, 
+				new QueryStatusCallback() {
 
-		BudgetEntity entity = new BudgetEntity();
-		entity.setDisplayName("Department of Education");
-		entity.setWeight(80);
-		entity.setMainImageUrl("http://image.shutterstock.com/display_pic_with_logo/91282/144566138/stock-photo-portrait-of-diligent-schoolkids-and-their-teacher-talking-at-lesson-144566138.jpg");
+					@Override
+					public void onComplete(JsonObject result) {
+						int total = result.get("total").getAsInt();
+						JsonArray res = result.getAsJsonArray("result");
+						ArrayList <BudgetEntity> agencies = new ArrayList <BudgetEntity>();
+						for(JsonElement elem : res) {
+							BudgetEntity entity = RestQueryRetriever.resultToEntity(elem);
+							agencies.add(entity);
+						}
+						mainView.setAdapter(new ProjectListAdapter(MainActivity.this, agencies, total, res.size()));
+					}
 
-		for (int i =0; i <20; i++) {
-			agencies.add(entity);
-		}
-		mainView.setAdapter(new ProjectListAdapter(this, agencies));
+					@Override
+					public void onStart() {
+						showLoader();
+						
+					}
+
+					@Override
+					public void onFinish() {
+						hideLoader();
+					}
+			
+		}).execute();
+//			
+//		BudgetEntity entity = new BudgetEntity();
+//		entity.setDisplayName("Department of Education");
+//		entity.setWeight(80);
+//		entity.setMainImageUrl("http://image.shutterstock.com/display_pic_with_logo/91282/144566138/stock-photo-portrait-of-diligent-schoolkids-and-their-teacher-talking-at-lesson-144566138.jpg");
+//
+//		for (int i =0; i <20; i++) {
+//			agencies.add(entity);
+//		}
+//		mainView.setAdapter(new ProjectListAdapter(this, agencies));
+	}
+	
+	void showLoader() {
+		ProgressBar loader = (ProgressBar)findViewById(R.id.progressBarLoading);
+		loader.setVisibility(View.VISIBLE);
+	}
+	
+	void hideLoader() {
+		ProgressBar loader = (ProgressBar)findViewById(R.id.progressBarLoading);
+		loader.setVisibility(View.GONE);
 	}
 }

@@ -1,6 +1,8 @@
 package com.dayosoft.checkmark.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.facebook.Request;
@@ -24,9 +26,13 @@ public class LoginHelper {
 							@Override
 							public void onCompleted(GraphUser user,
 									Response response) {
-//								LoginUserFacebookTask task = new LoginUserFacebookTask(
-//										activity, user, session);
-//								task.execute();
+								SharedPreferences prefs = activity.getSharedPreferences("checkmark",
+										Context.MODE_PRIVATE);
+								
+								String user_id = user.getId();
+								String ac = session.getAccessToken();
+								
+								
 							}
 						});
 				Request.executeBatchAsync(request);

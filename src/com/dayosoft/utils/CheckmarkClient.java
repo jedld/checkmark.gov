@@ -67,7 +67,7 @@ public class CheckmarkClient {
 	public static final int HTTP_GET = 0;
 	public static final int HTTP_POST = 1;
 
-	final String API_URL = "http://api.upout.com";
+	final String API_URL = "http://192.168.1.133:3000/api/v1/";
 	final String API_KEY = "c03b5e1e4710eb3be73a77d0cfa2a784a92c099b";
 	static CheckmarkClient instance;
 	String apiKey;
@@ -82,7 +82,7 @@ public class CheckmarkClient {
 		this.apid = apid;
 	}
 	
-	public JsonObject query(String url, HashMap<String, String> params,
+	public JsonObject query(String path, HashMap<String, String> params,
 			int method) {
 
 		HttpClient httpclient = new DefaultHttpClient();
@@ -98,13 +98,13 @@ public class CheckmarkClient {
 				}
 			}
 			String stringtype[] = new String[0];
-			String fullurl = url + "?"
+			String fullurl = API_URL + path + "?"
 					+ StringUtils.join(urlparams.toArray(stringtype), '&');
 			request = new HttpGet(fullurl);
 			Log.v(this.getClass().toString(), "Checkmark Request: GET " + fullurl);
 
 		} else {
-			request = new HttpPost(url);
+			request = new HttpPost(path);
 			HttpPost postRequest = (HttpPost) request;
 
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
@@ -123,7 +123,7 @@ public class CheckmarkClient {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Log.d(this.getClass().toString(), "Checkmark Request: POST " + url);
+			Log.d(this.getClass().toString(), "Checkmark Request: POST " + path);
 		}
 
 		HttpClientParams.setRedirecting(basicParams, true);
