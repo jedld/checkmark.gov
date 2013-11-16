@@ -3,35 +3,40 @@ package com.dayosoft.adapters;
 import java.util.ArrayList;
 
 import com.dayosoft.animations.CheckMarkAnimations;
+import com.dayosoft.checkmark.BudgetDetailActivity;
 import com.dayosoft.checkmark.R;
 import com.dayosoft.models.BudgetEntity;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 public class ProjectListAdapter implements ListAdapter {
 
-	Context context;
+	Activity context;
 	private LayoutInflater layoutInflater;
-	ArrayList <BudgetEntity> list = new ArrayList <BudgetEntity>();
-	
-	public ProjectListAdapter(Context context, ArrayList<BudgetEntity> list) {
+	ArrayList<BudgetEntity> list = new ArrayList<BudgetEntity>();
+
+	public ProjectListAdapter(Activity context, ArrayList<BudgetEntity> list) {
 		this.context = context;
 		this.list = list;
 		this.layoutInflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
-	
+
 	@Override
 	public int getCount() {
 		return list.size();
@@ -58,74 +63,27 @@ public class ProjectListAdapter implements ListAdapter {
 	@Override
 	public View getView(int index, View oldView, ViewGroup viewGroup) {
 		View view = layoutInflater.inflate(R.layout.main_entity, null, false);
-		ImageView image = (ImageView)view.findViewById(R.id.imageViewAgency);
-		TextView name = (TextView)view.findViewById(R.id.agencyName);
-		
+		ImageView image = (ImageView) view.findViewById(R.id.imageViewAgency);
+		TextView name = (TextView) view.findViewById(R.id.agencyName);
+
 		BudgetEntity entity = this.list.get(index);
-		
+
 		name.setText(entity.getDisplayName());
 		UrlImageViewHelper.setUrlDrawable(image, entity.getMainImageUrl());
-		
+
 		view.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
-				CheckMarkAnimations.zoomOutExitRight(context, arg0, new AnimatorListener() {
-
-					@Override
-					public void onAnimationCancel(Animator arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onAnimationEnd(Animator arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onAnimationRepeat(Animator arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onAnimationStart(Animator arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-				});
-//				CheckMarkAnimations.bobble(arg0, new AnimatorListener() {
-//
-//					@Override
-//					public void onAnimationCancel(Animator animation) {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//
-//					@Override
-//					public void onAnimationEnd(Animator animation) {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//
-//					@Override
-//					public void onAnimationRepeat(Animator animation) {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//
-//					@Override
-//					public void onAnimationStart(Animator animation) {
-//						// TODO Auto-generated method stub
-//						
-//					}
-//					
-//				});
+			public void onClick(final View view) {
+				
+				Intent intent = new Intent(context, BudgetDetailActivity.class);
+				intent.putExtra("id", (String) view.getTag());
+				context.startActivity(intent);
+				context.overridePendingTransition(
+						R.animator.slide_in_right_to_left,
+						R.animator.slide_out_right_to_left);
 			}
-			
+
 		});
 		return view;
 	}
@@ -151,13 +109,13 @@ public class ProjectListAdapter implements ListAdapter {
 	@Override
 	public void registerDataSetObserver(DataSetObserver arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void unregisterDataSetObserver(DataSetObserver arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -171,5 +129,5 @@ public class ProjectListAdapter implements ListAdapter {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 }

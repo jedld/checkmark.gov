@@ -61,6 +61,10 @@
             android:name="com.dayosoft.checkmark.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="com.dayosoft.checkmark.BudgetDetailActivity"
+            android:label="@string/title_activity_budget_detail" >
+        </activity>
     </application>
 
 </manifest>

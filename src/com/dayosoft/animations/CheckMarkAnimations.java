@@ -36,7 +36,8 @@ public class CheckMarkAnimations {
 				
 				ObjectAnimator animator = ObjectAnimator.ofInt(view, "left", view.getLeft(), display.getWidth());
 						animator.setDuration(250);
-				animator.start();		
+				animator.addListener(finalListener);
+				animator.start();
 			}
 
 			@Override

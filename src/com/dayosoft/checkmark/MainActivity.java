@@ -13,8 +13,10 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -33,6 +35,16 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		renderAgencies();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		case R.id.action_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			this.startActivity(intent);
+		}
+		return true;
 	}
 
 	@Override
