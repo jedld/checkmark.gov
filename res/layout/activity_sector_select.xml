@@ -8,16 +8,16 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="48dp"
         android:background="@color/header_background"
         android:orientation="vertical" >
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_below="@id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@id/header" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,80 +26,74 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="172dp"
+                android:layout_height="105dp"
                 android:background="@color/persian_green" >
 
                 <TextView
                     android:id="@+id/textViewSocialServices"
+                    style="@style/styleSectorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="SOCIAL SERVICES"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
+                    android:text="SOCIAL SERVICES" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="172dp"
+                android:layout_height="105dp"
                 android:background="@color/shakespear" >
 
                 <TextView
                     android:id="@+id/textViewEconomicServices"
+                    style="@style/styleSectorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="ECONOMIC SERVICES"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
+                    android:text="ECONOMIC SERVICES" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="172dp"
+                android:layout_height="105dp"
                 android:background="@color/cinnabar" >
 
                 <TextView
                     android:id="@+id/textViewDebtBurden"
+                    style="@style/styleSectorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="DEBT BURDEN"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
+                    android:text="DEBT BURDEN" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="172dp"
+                android:layout_height="105dp"
                 android:background="@color/london_hue" >
 
                 <TextView
                     android:id="@+id/textViewPublicServices"
+                    style="@style/styleSectorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="GENERAL PUBLIC SERVICES"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
+                    android:text="GENERAL PUBLIC SERVICES" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="172dp"
+                android:layout_height="105dp"
                 android:background="@color/sunglow" >
 
                 <TextView
                     android:id="@+id/textViewDefence"
+                    style="@style/styleSectorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="DEFENSE"
-                    android:textColor="@color/white"
-                    android:textSize="36sp" />
+                    android:text="DEFENSE" />
             </RelativeLayout>
         </LinearLayout>
-
     </ScrollView>
 
 </RelativeLayout>
