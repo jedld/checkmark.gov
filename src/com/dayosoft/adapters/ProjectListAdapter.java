@@ -291,7 +291,7 @@ public class ProjectListAdapter implements ListAdapter {
 			view.setTag(Long.toString(entity.getId()));
 
 			name.setText(entity.getDisplayName());
-			budget.setText(entity.getBudgetTotal() + "K");
+			budget.setText("Php "+ entity.getBudgetTotal() + "K");
 			vote.setOnClickListener(new VoteClickListener(entity.getId(),
 					VoteClickListener.VOTE_UP));
 

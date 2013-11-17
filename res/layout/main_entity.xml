@@ -2,51 +2,90 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/agencyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textViewBudget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/agencyName"
-        android:text="Large Text"
-        android:gravity="right"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:orientation="vertical"
+    android:background="#00000000" >
 
     <RelativeLayout
-        android:id="@+id/containerVote"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/textViewBudget" >
+        android:layout_margin="15dp"
+        android:background="@color/white"
+        android:padding="4dp" >
 
-        <Button
-            android:id="@+id/buttonHasIssues"
+        <LinearLayout
+            android:id="@+id/containerUpperBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/containerNumbers"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/agencyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Construction of classrooms"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:color="#333333" />
+
+                <TextView
+                    android:id="@+id/textViewBudget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Php 5 Billion"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/tan_hide" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="99dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:orientation="vertical" >
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/containerVote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/ekis" />
+            android:layout_below="@id/containerUpperBox" >
 
-        <Button
-            android:id="@+id/buttonVote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/buttonHasIssues"
-            android:text="Check" />
+            <Button
+                android:id="@+id/buttonHasIssues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/ekis" />
+
+            <Button
+                android:id="@+id/buttonVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/buttonHasIssues"
+                android:text="Check" />
+        </RelativeLayout>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="96dp"
+        android:layout_height="61dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/persian_green" >
+
+    </LinearLayout>
 
 </RelativeLayout>

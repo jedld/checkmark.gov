@@ -8,5 +8,6 @@
     <color name="london_hue">#B995C5</color>
     <color name="sunglow">#FFCB2F</color>
     <color name="white">#FFFFFF</color>
-
+	<color name="list_view_background">#E7E7E7</color>
+	<color name="tan_hide">#F68E51</color>
 </resources>
