@@ -67,7 +67,7 @@ public class CheckmarkClient {
 	public static final int HTTP_GET = 0;
 	public static final int HTTP_POST = 1;
 
-	final String API_URL = "http://10.0.2.2:3000/api/v1/";
+	final String API_URL = "http://10.236.85.237:3000/api/v1/";
 	static CheckmarkClient instance;
 	String authToken;
 	String apiKey;

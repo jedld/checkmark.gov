@@ -20,6 +20,7 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -37,22 +38,29 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		String sector = this.getIntent().getExtras().getString("sector");
-		renderProjects("sector_code:" + sector);
+		// Get the intent, verify the action and get the query
+		Intent intent = getIntent();
+		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+			String query = intent.getStringExtra(SearchManager.QUERY);
+			renderProjects(query);
+		} else {
+			String sector = this.getIntent().getExtras().getString("sector");
+			renderProjects("sector_code:" + sector);
+		}
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		case R.id.action_settings:
 			Intent intent = new Intent(this, SettingsActivity.class);
 			this.startActivity(intent);
+		case R.id.action_search:
+			this.onSearchRequested();
 		}
 		return true;
 	}
@@ -64,57 +72,59 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-
 	private void renderProjects(final String q) {
-		final ListView mainView = (ListView)this.findViewById(R.id.listViewProjects);
+		final ListView mainView = (ListView) this
+				.findViewById(R.id.listViewProjects);
 		final HashMap<String, String> params = new HashMap<String, String>();
 		params.put("q", q);
-		RestQueryRetriever rest = new RestQueryRetriever(CheckmarkClient.HTTP_GET,
-				"ga/list",
-				params, 
+		RestQueryRetriever rest = new RestQueryRetriever(
+				CheckmarkClient.HTTP_GET, "ga/list", params,
 				new QueryStatusCallback() {
 
 					@Override
 					public void onComplete(JsonObject result) {
 						int total = result.get("total").getAsInt();
 						JsonArray res = result.getAsJsonArray("result");
-						ArrayList <BudgetEntity> agencies = new ArrayList <BudgetEntity>();
-						for(JsonElement elem : res) {
-							if (res!=null) {
-								BudgetEntity entity = RestQueryRetriever.resultToEntity(elem);
+						ArrayList<BudgetEntity> agencies = new ArrayList<BudgetEntity>();
+						for (JsonElement elem : res) {
+							if (res != null) {
+								BudgetEntity entity = RestQueryRetriever
+										.resultToEntity(elem);
 								agencies.add(entity);
 							}
 						}
-						mainView.setAdapter(new ProjectListAdapter(MainActivity.this, params, agencies, total, res.size()));
+						mainView.setAdapter(new ProjectListAdapter(
+								MainActivity.this, params, agencies, total, res
+										.size()));
 					}
 
 					@Override
 					public void onStart() {
 						showLoader();
-						
+
 					}
 
 					@Override
 					public void onFinish() {
 						hideLoader();
 					}
-			
-		});
+
+				});
 		String auth = LoginHelper.getCurrentUser(this);
-		if (auth!=null) {
+		if (auth != null) {
 			rest.getClient().setAuthToken(auth);
 		}
 		rest.execute();
 
 	}
-	
+
 	void showLoader() {
-		ProgressBar loader = (ProgressBar)findViewById(R.id.progressBarLoading);
+		ProgressBar loader = (ProgressBar) findViewById(R.id.progressBarLoading);
 		loader.setVisibility(View.VISIBLE);
 	}
-	
+
 	void hideLoader() {
-		ProgressBar loader = (ProgressBar)findViewById(R.id.progressBarLoading);
+		ProgressBar loader = (ProgressBar) findViewById(R.id.progressBarLoading);
 		loader.setVisibility(View.GONE);
 	}
 }
