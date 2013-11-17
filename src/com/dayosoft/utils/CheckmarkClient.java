@@ -97,6 +97,11 @@ public class CheckmarkClient {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpUriRequest request = null;
 		BasicHttpParams basicParams = new BasicHttpParams();
+		
+		if (this.getAuthToken()!=null) {
+			params.put("auth_token", this.getAuthToken());
+		}
+		
 		if (method == CheckmarkClient.HTTP_GET) {
 			ArrayList<String> urlparams = new ArrayList<String>();
 			for (String key : params.keySet()) {
@@ -115,9 +120,7 @@ public class CheckmarkClient {
 		} else {
 			request = new HttpPost( API_URL + path);
 			
-			if (this.getAuthToken()!=null) {
-				params.put("auth_token", this.getAuthToken());
-			}
+
 			HttpPost postRequest = (HttpPost) request;
 
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();

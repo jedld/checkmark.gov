@@ -9,7 +9,16 @@ public class BudgetEntity {
 	String displayName;
 	String mainImageUrl;
 	String budgetTotal;
+	int votes;
 	
+	public int getVotes() {
+		return votes;
+	}
+
+	public void setVotes(int votes) {
+		this.votes = votes;
+	}
+
 	public String getBudgetTotal() {
 		return budgetTotal;
 	}

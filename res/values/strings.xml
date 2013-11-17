@@ -17,4 +17,5 @@
 	<string name="please_sign_in">Sign up or Log in to be able to vote</string>
 	<string name="eks">ekis</string>
 	<string name="login_using_email">Login va email</string>
+	<string name="ekis">Ekis</string>
 </resources>

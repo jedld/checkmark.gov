@@ -20,6 +20,7 @@ import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +56,7 @@ public class ProjectListAdapter implements ListAdapter {
 				: (total_items / PER_PAGE) + 1;
 	}
 
-	public ProjectListAdapter(Activity context,HashMap<String, String> params,
+	public ProjectListAdapter(Activity context, HashMap<String, String> params,
 			ArrayList<BudgetEntity> list, int total_count, int last_page_count) {
 		this.context = context;
 		this.list = list;
@@ -107,8 +108,9 @@ public class ProjectListAdapter implements ListAdapter {
 				this.queryInProgress = true;
 				params.put("from",
 						Integer.toString((pages_cached * PER_PAGE) + 1));
-				RestQueryRetriever rest = new RestQueryRetriever(CheckmarkClient.HTTP_GET, "ga/list",
-						params, new QueryStatusCallback() {
+				RestQueryRetriever rest = new RestQueryRetriever(
+						CheckmarkClient.HTTP_GET, "ga/list", params,
+						new QueryStatusCallback() {
 
 							@Override
 							public void onComplete(JsonObject result) {
@@ -141,7 +143,7 @@ public class ProjectListAdapter implements ListAdapter {
 
 						});
 				String auth = LoginHelper.getCurrentUser(context);
-				if (auth!=null) {
+				if (auth != null) {
 					rest.getClient().setAuthToken(auth);
 				}
 				rest.execute();
@@ -188,8 +190,44 @@ public class ProjectListAdapter implements ListAdapter {
 
 									@Override
 									public void onComplete(JsonObject result) {
-										// TODO Auto-generated method stub
+										ObjectAnimator animator = ObjectAnimator
+												.ofFloat(((View) view.getParent()), "alpha", 1.0f,
+														0.0f);
+										animator.addListener(new AnimatorListener() {
 
+											@Override
+											public void onAnimationCancel(
+													Animator arg0) {
+												// TODO Auto-generated method
+												// stub
+
+											}
+
+											@Override
+											public void onAnimationEnd(
+													Animator arg0) {
+												((View) view.getParent())
+														.setVisibility(View.GONE);
+											}
+
+											@Override
+											public void onAnimationRepeat(
+													Animator arg0) {
+												// TODO Auto-generated method
+												// stub
+
+											}
+
+											@Override
+											public void onAnimationStart(
+													Animator arg0) {
+												// TODO Auto-generated method
+												// stub
+
+											}
+
+										});
+										animator.start();
 									}
 
 									@Override
@@ -239,37 +277,41 @@ public class ProjectListAdapter implements ListAdapter {
 
 			View issuses = (View) view.findViewById(R.id.buttonHasIssues);
 
-			ImageView image = (ImageView) view
-					.findViewById(R.id.imageViewAgency);
 			TextView name = (TextView) view.findViewById(R.id.agencyName);
+			TextView budget = (TextView) view.findViewById(R.id.textViewBudget);
+			View voteContainer = (View) view.findViewById(R.id.containerVote);
 
 			BudgetEntity entity = this.list.get(index);
 
+			if (entity.getVotes() != 0) {
+				voteContainer.setVisibility(View.GONE);
+			} else {
+				voteContainer.setVisibility(View.VISIBLE);
+			}
 			view.setTag(Long.toString(entity.getId()));
 
 			name.setText(entity.getDisplayName());
-			UrlImageViewHelper.setUrlDrawable(image, entity.getMainImageUrl());
-
+			budget.setText(entity.getBudgetTotal() + "K");
 			vote.setOnClickListener(new VoteClickListener(entity.getId(),
 					VoteClickListener.VOTE_UP));
 
 			issuses.setOnClickListener(new VoteClickListener(entity.getId(),
 					VoteClickListener.VOTE_DOWN));
 
-			view.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(final View view) {
-
-					Intent intent = new Intent(context,
-							BudgetDetailActivity.class);
-					intent.putExtra("id", (String) view.getTag());
-					context.startActivity(intent);
-					context.overridePendingTransition(
-							R.animator.slide_in_right_to_left,
-							R.animator.slide_out_right_to_left);
-				}
-			});
+			// view.setOnClickListener(new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(final View view) {
+			//
+			// Intent intent = new Intent(context,
+			// BudgetDetailActivity.class);
+			// intent.putExtra("id", (String) view.getTag());
+			// context.startActivity(intent);
+			// context.overridePendingTransition(
+			// R.animator.slide_in_right_to_left,
+			// R.animator.slide_out_right_to_left);
+			// }
+			// });
 			return view;
 		} else {
 			return layoutInflater.inflate(R.layout.loader_item, viewGroup,

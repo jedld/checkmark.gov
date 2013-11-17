@@ -19,7 +19,7 @@
         android:text="@string/login_using_email" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewBudget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/facebook" />
