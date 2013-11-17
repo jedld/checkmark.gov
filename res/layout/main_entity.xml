@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="Php 5 Billion"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="30sp"
                     android:textColor="@color/tan_hide" />
 
             </LinearLayout>
@@ -103,7 +103,7 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="96dp"
         android:layout_height="61dp"
         android:layout_alignParentRight="true"
@@ -111,6 +111,16 @@
         android:layout_marginTop="5dp"
         android:background="@color/persian_green" >
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textViewDepartmentCode"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

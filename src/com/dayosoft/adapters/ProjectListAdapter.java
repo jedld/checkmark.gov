@@ -1,5 +1,6 @@
 package com.dayosoft.adapters;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -238,6 +239,13 @@ public class ProjectListAdapter implements ListAdapter {
 		}
 	}
 
+	
+	 static public String customFormat(String pattern, long value ) {
+	      DecimalFormat myFormatter = new DecimalFormat(pattern);
+	      return myFormatter.format(value);
+	   }
+
+	 
 	@Override
 	public View getView(int index, View oldView, ViewGroup viewGroup) {
 
@@ -253,9 +261,11 @@ public class ProjectListAdapter implements ListAdapter {
 			TextView budget = (TextView) view.findViewById(R.id.textViewBudget);
 			TextView upvotetotal = (TextView) view.findViewById(R.id.textUpVoteCount);
 			TextView downvotetotal = (TextView) view.findViewById(R.id.textDownVoteCount);
+			TextView department = (TextView)view.findViewById(R.id.textViewDepartmentCode);
 
 			BudgetEntity entity = this.list.get(index);
 
+			department.setText(entity.getDepartmentCode());
 			if (entity.getVotes() == 1) {
 				vote.setImageResource(R.drawable.accept_on);
 			} else {
@@ -274,7 +284,7 @@ public class ProjectListAdapter implements ListAdapter {
 			view.setTag(Long.toString(entity.getId()));
 
 			name.setText(entity.getDisplayName());
-			budget.setText("Php "+ entity.getBudgetTotal() + "K");
+			budget.setText("Php "+ customFormat("###,###.###",Long.parseLong(entity.getBudgetTotal())) + "K");
 			vote.setOnClickListener(new VoteClickListener(entity.getId(),
 					VoteClickListener.VOTE_UP));
 
