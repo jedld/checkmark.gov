@@ -74,6 +74,8 @@ public class RestQueryRetriever extends AsyncTask<Void,Void,JsonObject> {
 		int budget_id = elem.getAsJsonObject().get("budget_id").getAsInt();
 		String budget_description = elem.getAsJsonObject().get("budget_description").getAsString();
 		int budget_total = elem.getAsJsonObject().get("budget_total").getAsInt();
+		int downvote = elem.getAsJsonObject().get("downvotes").getAsInt();
+		int upvote = elem.getAsJsonObject().get("upvotes").getAsInt();
 		
 		if (elem.getAsJsonObject().has("vote")) {
 			if (elem.getAsJsonObject().get("vote").isJsonNull()) {
@@ -85,9 +87,13 @@ public class RestQueryRetriever extends AsyncTask<Void,Void,JsonObject> {
 		} else {
 			entity.setVotes(0);
 		}
+		
 		entity.setId(budget_id);
 		entity.setBudgetTotal(Integer.toString(budget_total));
 		entity.setDisplayName(budget_description);
+		entity.setUpVotes(upvote);
+		entity.setDownVotes(downvote);
+		
 		return entity;
 	}
 }

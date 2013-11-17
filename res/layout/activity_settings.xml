@@ -6,7 +6,7 @@
     tools:context=".SettingsActivity" >
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textDownVoteCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/please_sign_in"

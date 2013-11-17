@@ -9,6 +9,34 @@ public class BudgetEntity {
 	String displayName;
 	String mainImageUrl;
 	String budgetTotal;
+	String departmentCode;
+	int downVotes;
+	int upVotes;
+	
+	public String getDepartmentCode() {
+		return departmentCode;
+	}
+
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
+
+	public int getDownVotes() {
+		return downVotes;
+	}
+
+	public void setDownVotes(int downVotes) {
+		this.downVotes = downVotes;
+	}
+
+	public int getUpVotes() {
+		return upVotes;
+	}
+
+	public void setUpVotes(int upVotes) {
+		this.upVotes = upVotes;
+	}
+
 	int votes;
 	
 	public int getVotes() {

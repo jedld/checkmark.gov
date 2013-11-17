@@ -159,6 +159,15 @@ public class ProjectListAdapter implements ListAdapter {
 		long id;
 		int vote_type;
 
+		public void updateState(ImageView view) {
+			if (vote_type == 1) {
+				view.setImageResource(R.drawable.accept_on);
+			} else
+			if (vote_type == 2) {
+				view.setImageResource(R.drawable.reject_on);
+			} 
+		}
+		
 		public VoteClickListener(long id, int vote_type) {
 			this.id = id;
 			this.vote_type = vote_type;
@@ -190,44 +199,7 @@ public class ProjectListAdapter implements ListAdapter {
 
 									@Override
 									public void onComplete(JsonObject result) {
-										ObjectAnimator animator = ObjectAnimator
-												.ofFloat(((View) view.getParent()), "alpha", 1.0f,
-														0.0f);
-										animator.addListener(new AnimatorListener() {
-
-											@Override
-											public void onAnimationCancel(
-													Animator arg0) {
-												// TODO Auto-generated method
-												// stub
-
-											}
-
-											@Override
-											public void onAnimationEnd(
-													Animator arg0) {
-												((View) view.getParent())
-														.setVisibility(View.GONE);
-											}
-
-											@Override
-											public void onAnimationRepeat(
-													Animator arg0) {
-												// TODO Auto-generated method
-												// stub
-
-											}
-
-											@Override
-											public void onAnimationStart(
-													Animator arg0) {
-												// TODO Auto-generated method
-												// stub
-
-											}
-
-										});
-										animator.start();
+										updateState((ImageView)view);
 									}
 
 									@Override
@@ -273,21 +245,32 @@ public class ProjectListAdapter implements ListAdapter {
 		if (index < list.size()) {
 			View view = layoutInflater.inflate(R.layout.main_entity, null,
 					false);
-			View vote = (View) view.findViewById(R.id.buttonVote);
+			ImageView vote = (ImageView) view.findViewById(R.id.buttonVote);
 
-			View issuses = (View) view.findViewById(R.id.buttonHasIssues);
+			ImageView issuses = (ImageView) view.findViewById(R.id.buttonHasIssues);
 
 			TextView name = (TextView) view.findViewById(R.id.agencyName);
 			TextView budget = (TextView) view.findViewById(R.id.textViewBudget);
-			View voteContainer = (View) view.findViewById(R.id.containerVote);
+			TextView upvotetotal = (TextView) view.findViewById(R.id.textUpVoteCount);
+			TextView downvotetotal = (TextView) view.findViewById(R.id.textDownVoteCount);
 
 			BudgetEntity entity = this.list.get(index);
 
-			if (entity.getVotes() != 0) {
-				voteContainer.setVisibility(View.GONE);
+			if (entity.getVotes() == 1) {
+				vote.setImageResource(R.drawable.accept_on);
 			} else {
-				voteContainer.setVisibility(View.VISIBLE);
+				vote.setImageResource(R.drawable.accept_off);
 			}
+			
+			upvotetotal.setText(Integer.toString(entity.getUpVotes()));
+			
+			if (entity.getVotes() == 2) {
+				issuses.setImageResource(R.drawable.reject_on);
+			} else {
+				issuses.setImageResource(R.drawable.reject_off);
+			}
+			
+			downvotetotal.setText(Integer.toString(entity.getDownVotes()));
 			view.setTag(Long.toString(entity.getId()));
 
 			name.setText(entity.getDisplayName());
